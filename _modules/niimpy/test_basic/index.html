@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>niimpy.test_basic &mdash; Niimpy dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/mystnb.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/togglebutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../" class="icon icon-home"> Niimpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Introduction/">Niimpy introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Manual/">Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../schema/">Data schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../architecture/">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules/">niimpy module index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">Niimpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../">Module code</a> &raquo;</li>
+        
+      <li>niimpy.test_basic</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for niimpy.test_basic</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="kn">import</span> <span class="nn">niimpy</span>
+
+<span class="n">DATA</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">sampledata</span><span class="o">.</span><span class="n">DATA</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TZ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Europe/Helsinki&#39;</span>
+<span class="n">time</span><span class="o">.</span><span class="n">tzset</span><span class="p">()</span>
+
+<div class="viewcode-block" id="test_connect"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_connect">[docs]</a><span class="k">def</span> <span class="nf">test_connect</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">users</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="test_users"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_users">[docs]</a><span class="k">def</span> <span class="nf">test_users</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">users</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="test_tables"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_tables">[docs]</a><span class="k">def</span> <span class="nf">test_tables</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">tables</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="test_user_table_counts"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_user_table_counts">[docs]</a><span class="k">def</span> <span class="nf">test_user_table_counts</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">user_table_counts</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="test_username_validatation_singleuser"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_username_validatation_singleuser">[docs]</a><span class="k">def</span> <span class="nf">test_username_validatation_singleuser</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">niimpy</span><span class="o">.</span><span class="n">sampledata</span><span class="o">.</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">validate_username</span><span class="p">(</span><span class="s1">&#39;some_name&#39;</span><span class="p">)</span>
+    <span class="c1"># Should return the proper value</span>
+    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">validate_username</span><span class="p">(</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">)</span>  <span class="o">==</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span>
+    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">validate_username</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span></div>
+
+<div class="viewcode-block" id="test_username_validatation_multiuser"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_username_validatation_multiuser">[docs]</a><span class="k">def</span> <span class="nf">test_username_validatation_multiuser</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">niimpy</span><span class="o">.</span><span class="n">sampledata</span><span class="o">.</span><span class="n">MULTIUSER</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>   <span class="c1"># None not allowed for multiuser</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">validate_username</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>   <span class="c1"># Not a string</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">validate_username</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">validate_username</span><span class="p">(</span><span class="s1">&#39;jd9INuQ5BBlW&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;jd9INuQ5BBlW&#39;</span>
+    <span class="c1"># Username not in the DB, this does not raise an error currently:</span>
+    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">validate_username</span><span class="p">(</span><span class="s1">&#39;abcdefg&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;abcdefg&#39;</span>
+    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">validate_username</span><span class="p">(</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">)</span> <span class="o">==</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span></div>
+
+<div class="viewcode-block" id="test_firstlast"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_firstlast">[docs]</a><span class="k">def</span> <span class="nf">test_firstlast</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="test_start_end"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_start_end">[docs]</a><span class="k">def</span> <span class="nf">test_start_end</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1156</span>
+    <span class="c1"># Beyond the end range - sholud be zero</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1532449041</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1532449041</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;2018-07-25&quot;</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="c1"># Range</span>
+    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;2018-07-11&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2018-07-12&quot;</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">163</span>
+    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">12</span><span class="p">))[</span><span class="s1">&#39;count&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">163</span>
+    <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1531256400</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">1531342800</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">163</span></div>
+
+<div class="viewcode-block" id="test_occurrence_db"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_occurrence_db">[docs]</a><span class="k">def</span> <span class="nf">test_occurrence_db</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="n">occs</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">occurrence</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">occurrence</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">occurrence</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">occurrence</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">occurrence</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2018-07-12&#39;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">occurrence</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;2018-07-12&#39;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">occurrence</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">bin_width</span><span class="o">=</span><span class="mi">720</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">occs</span><span class="p">[</span><span class="s1">&#39;occurrence&#39;</span><span class="p">][</span><span class="s1">&#39;2018-07-10 00:00:00&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">occs</span><span class="p">[</span><span class="s1">&#39;occurrence&#39;</span><span class="p">][</span><span class="s1">&#39;2018-07-10 12:00:00&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span>
+    <span class="k">assert</span> <span class="n">occs</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">][</span><span class="s1">&#39;2018-07-10 12:00:00&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">12</span>
+    <span class="k">assert</span> <span class="n">occs</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">][</span><span class="s1">&#39;2018-07-10 12:00:00&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2018-07-10&#39;</span></div>
+
+<div class="viewcode-block" id="test_util_occurrence"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_util_occurrence">[docs]</a><span class="k">def</span> <span class="nf">test_util_occurrence</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="n">timestamps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">timestamps</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">)</span>
+    <span class="n">occs</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">occurrence</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">occs</span><span class="p">[</span><span class="s1">&#39;occurrence&#39;</span><span class="p">][</span><span class="s1">&#39;2018-07-10 00:00:00&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">occs</span><span class="p">[</span><span class="s1">&#39;occurrence&#39;</span><span class="p">][</span><span class="s1">&#39;2018-07-10 12:00:00&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span>
+    <span class="k">assert</span> <span class="n">occs</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">][</span><span class="s1">&#39;2018-07-10 12:00:00&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">12</span>
+    <span class="k">assert</span> <span class="n">occs</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">][</span><span class="s1">&#39;2018-07-10 12:00:00&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2018-07-10&#39;</span></div>
+
+<div class="viewcode-block" id="test_hourly"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_hourly">[docs]</a><span class="k">def</span> <span class="nf">test_hourly</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">hourly</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">)</span>
+
+    <span class="n">data</span><span class="o">.</span><span class="n">hourly</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;screen_status&quot;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">hourly</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;screen_status&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">hourly</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;screen_status&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">hourly</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;screen_status&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">hourly</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;screen_status&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2018-07-12&#39;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">hourly</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;screen_status&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;2018-07-12&#39;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">hourly</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;screen_status&quot;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">hourly</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;screen_status&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="test_raw"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_raw">[docs]</a><span class="k">def</span> <span class="nf">test_raw</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2018-07-12&#39;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;AwareScreen&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">niimpy</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;2018-07-12&#39;</span><span class="p">)</span></div>
+
+
+<span class="c1"># Sample db doesn&#39;t have this data yet.</span>
+<span class="c1">#def test_get_survey_score():</span>
+<span class="c1">#    data = niimpy.open(DATA)</span>
+
+
+<div class="viewcode-block" id="test_filled_bins"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_filled_bins">[docs]</a><span class="k">def</span> <span class="nf">test_filled_bins</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">DATA</span><span class="p">)</span>
+    <span class="n">timestamps</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s2">&quot;AwareScreen&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">gb2</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">occurrence</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span>
+    <span class="n">gb2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2018-07-10 00:00:00&#39;</span><span class="p">][</span><span class="s1">&#39;occurrence&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">gb2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2018-07-10 12:00:00&#39;</span><span class="p">][</span><span class="s1">&#39;occurrence&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span>
+
+    <span class="n">gb2</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">occurrence</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">bin_width</span><span class="o">=</span><span class="mi">720</span><span class="p">)</span>
+    <span class="n">gb2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2018-07-10 00:00:00&#39;</span><span class="p">][</span><span class="s1">&#39;occurrence&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">gb2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2018-07-10 12:00:00&#39;</span><span class="p">][</span><span class="s1">&#39;occurrence&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span></div>
+
+<div class="viewcode-block" id="test_filled_bins_ints"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_filled_bins_ints">[docs]</a><span class="k">def</span> <span class="nf">test_filled_bins_ints</span><span class="p">():</span>
+    <span class="n">timestamps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">3600</span><span class="p">,</span> <span class="mi">3601</span><span class="p">,</span> <span class="mi">4201</span><span class="p">])</span>
+    <span class="n">timestamps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+    <span class="n">gb2</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">occurrence</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gb2</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">gb2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;1970-01-01 00:00:00&#39;</span><span class="p">][</span><span class="s1">&#39;occurrence&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="k">assert</span> <span class="n">gb2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;1970-01-01 01:00:00&#39;</span><span class="p">][</span><span class="s1">&#39;occurrence&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="test_to_datetime"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_to_datetime">[docs]</a><span class="k">def</span> <span class="nf">test_to_datetime</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">tmp_timezone</span><span class="p">(</span><span class="s1">&#39;Europe/Helsinki&#39;</span><span class="p">):</span>
+        <span class="c1"># pd.Series as input</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+        <span class="c1"># This should be localtime in Europe/Helsinki</span>
+        <span class="k">assert</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hour</span> <span class="o">==</span> <span class="mi">2</span>
+
+        <span class="c1"># raw unixtime list as input</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hour</span> <span class="o">==</span> <span class="mi">2</span>
+
+    <span class="k">with</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">tmp_timezone</span><span class="p">(</span><span class="s1">&#39;Europe/Berlin&#39;</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">niimpy</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+        <span class="c1"># This should be localtime in Europe/Helsinki</span>
+        <span class="k">assert</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hour</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="test_df_normalize"><a class="viewcode-back" href="../../../api/niimpy.test_basic/#niimpy.test_basic.test_df_normalize">[docs]</a><span class="k">def</span> <span class="nf">test_df_normalize</span><span class="p">():</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3600</span><span class="p">,</span> <span class="mi">7200</span><span class="p">],</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]})</span>
+    <span class="n">niimpy</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">df_normalize</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="s1">&#39;1970-01-01 03:00:00&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hour</span> <span class="o">==</span> <span class="mi">3</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="p">([</span><span class="s1">&#39;2018-01-01&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;hour&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]})</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">niimpy</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">df_normalize</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="s1">&#39;2018-01-01 03:00:00&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span>
+    <span class="k">assert</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hour</span> <span class="o">==</span> <span class="mi">3</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, the contributors.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

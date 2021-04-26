@@ -1,0 +1,618 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>niimpy.preprocess module &mdash; Niimpy dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/mystnb.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/togglebutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex/" />
+    <link rel="search" title="Search" href="../../search/" />
+    <link rel="next" title="niimpy.survey module" href="../niimpy.survey/" />
+    <link rel="prev" title="niimpy.sampledata module" href="../niimpy.sampledata/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../" class="icon icon-home"> Niimpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/">Niimpy introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Manual/">Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../schema/">Data schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/">Architecture</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../modules/">niimpy module index</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../niimpy/">niimpy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../niimpy/#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../niimpy.aalto/">niimpy.aalto module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../niimpy.database/">niimpy.database module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../niimpy.sampledata/">niimpy.sampledata module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">niimpy.preprocess module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../niimpy.survey/">niimpy.survey module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../niimpy.test_basic/">niimpy.test_basic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../niimpy.test_survey/">niimpy.test_survey module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../niimpy.test_util/">niimpy.test_util module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../niimpy.util/">niimpy.util module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../niimpy/#module-niimpy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../">Niimpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../modules/">niimpy module index</a> &raquo;</li>
+        
+          <li><a href="../niimpy/">niimpy package</a> &raquo;</li>
+        
+      <li>niimpy.preprocess module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/api/niimpy.preprocess.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-niimpy.preprocess">
+<span id="niimpy-preprocess-module"></span><h1>niimpy.preprocess module<a class="headerlink" href="#module-niimpy.preprocess" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="niimpy.preprocess.ambient_noise">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">ambient_noise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#ambient_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.ambient_noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a Dataframe with 5 possible computations regarding the noise
+ambient plug-in: average decibels, average frequency, number of times when 
+there was noise in the day, number of times when there was a loud noise in 
+the day (&gt;70dB), and number of times when the noise matched the speech noise
+level and frequency (65Hz &lt; freq &lt; 255Hz and dB&gt;50 )</p>
+<p>NOTE: This function aggregates data by day.</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>avg_noise: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.app_duration">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">app_duration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_list_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#app_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.app_duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns two DataFrames contanining the duration and number of events per
+group of apps, e.g. number of times a person used communication apps like 
+WhatsApp, Telegram, Messenger, sms, etc. and for how long these apps were 
+used in a day (in seconds).</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional
+app_list_path: path to the csv file where the apps are classified into groups</p>
+<p>duration: Dataframe
+count: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.battery_charge_discharge">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">battery_charge_discharge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#battery_charge_discharge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.battery_charge_discharge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame including all battery data and showing the charge/discharge between each timestamp.</p>
+<p>data: dataframe with date index</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.battery_gaps">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">battery_gaps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_duration_between</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#battery_gaps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.battery_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame including all battery data and showing the delta between 
+consecutive battery timestamps. The minimum size of the considered deltas can be decided 
+with the min_duration_between parameter.</p>
+<p>data: dataframe with date index
+min_duration_between: Timedelta, for example, pd.Timedelta(hours=6)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.battery_occurrences">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">battery_occurrences</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battery_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">battery_status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">days</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hours</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minutes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">milli</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">micro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nano</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#battery_occurrences"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.battery_occurrences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dataframe showing the amount of battery data points found between a given interval and steps.
+The default interval is 6 hours.
+Parameters
+———-
+battery_data: Dataframe
+user: string, optional
+start: datetime, optional
+end: datetime, optional
+battery_status: boolean, optional</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.call_info">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">call_info</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#call_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.call_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame contanining the duration and number of events per
+type of calls (outgoing, incoming, missed). The Dataframe summarizes the 
+duration of the incoming/outgoing calls in seconds, number of those events,
+and how long (in seconds) the person has spoken to the top 5 contacts (most
+frequent)</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>duration: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.communication_info">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">communication_info</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#communication_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.communication_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame contanining all the information extracted from 
+communication’s events (calls, sms, and communication apps like WhatsApp,
+Telegram, Messenger, etc.). Regarding calls, this function contains the 
+duration of the incoming/outgoing calls in seconds, number of those events,
+and how long (in seconds) the person has spoken to the top 5 contacts (most
+frequent). Regarding the SMSs, this function contains the number of incoming
+/outgoing events, and the top 5 contacts (most frequent). Aditionally, we 
+also include the calculated duration of the incoming/outgoing sms and the 
+lags (i.e. the period between receiving a message and reading/writing a 
+reply). Regarding the app, the duration of communication events is summarized.</p>
+<p>This function also sums all the different durations (calls, SMSs, apps) and 
+provides the duration (in seconds) that a person spent communicating during
+the day.</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>call_summary: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.daily_affect_variability">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">daily_affect_variability</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#daily_affect_variability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.daily_affect_variability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns two DataFrames corresponding to the daily affect variability and 
+mean daily affect, both measures defined in the OLO paper available in 
+10.1371/journal.pone.0110907. In brief, the mean daily affect computes the 
+mean of each of the 7 questions (e.g. sad, cheerful, tired) asked in a 
+likert scale from 0 to 7. Conversely, the daily affect viariability computes 
+the standard deviation of each of the 7 questions.</p>
+<p>NOTE: This function aggregates data by day.</p>
+<p>database: Niimpy database
+user: string</p>
+<p>DLA_mean: mean of the daily affect 
+DLA_std: standard deviation of the daily affect</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.find_battery_gaps">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">find_battery_gaps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battery_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">days</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hours</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minutes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">milli</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">micro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nano</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#find_battery_gaps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.find_battery_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dataframe showing the gaps found only in the battery data.
+The default interval is 6 hours.
+Parameters
+———-
+battery_data: Dataframe
+other_data: Dataframe</p>
+<blockquote>
+<div><p>The data you want to compare with</p>
+</div></blockquote>
+<p>start: datetime, optional
+end: datetime, optional</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.find_non_battery_gaps">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">find_non_battery_gaps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battery_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">days</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hours</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minutes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">milli</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">micro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nano</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#find_non_battery_gaps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.find_non_battery_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dataframe showing the gaps found only in the other data.
+The default interval is 6 hours.
+Parameters
+———-
+battery_data: Dataframe
+other_data: Dataframe</p>
+<blockquote>
+<div><p>The data you want to compare with</p>
+</div></blockquote>
+<p>start: datetime, optional
+end: datetime, optional</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.find_real_gaps">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">find_real_gaps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battery_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">days</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hours</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minutes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">milli</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">micro</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nano</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#find_real_gaps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.find_real_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dataframe showing the gaps found both in the battery data and the other data.
+The default interval is 6 hours.
+Parameters
+———-
+battery_data: Dataframe
+other_data: Dataframe</p>
+<blockquote>
+<div><p>The data you want to compare with</p>
+</div></blockquote>
+<p>start: datetime, optional
+end: datetime, optional</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.get_battery_data">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">get_battery_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#get_battery_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.get_battery_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame with battery data for a user.
+Parameters:
+——–
+database: Niimpy database
+user: string
+start: datetime, optional
+end: datetime, optional</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.get_phq9">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">get_phq9</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#get_phq9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.get_phq9" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the phq9 scores from the databases per subject</p>
+<blockquote>
+<div><p>database: database
+user: string</p>
+</div></blockquote>
+<p>phq9: Dataframe with the phq9 score</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.get_seconds">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">get_seconds</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_delta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#get_seconds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.get_seconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the timedelta to seconds</p>
+<p>NOTE: This is a helper function</p>
+<p>time_delta: Timedelta</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.get_subjects">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">get_subjects</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#get_subjects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.get_subjects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of the subjects in the database
+Parameters
+———-
+database: database</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.location_data">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">location_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#location_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.location_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the readily, preprocessed location data from the right database. 
+The data already contains the aggregation of the GPS data (more info here:
+<a class="reference external" href="https://github.com/CxAalto/koota-server/blob/master/kdata/converter.py">https://github.com/CxAalto/koota-server/blob/master/kdata/converter.py</a>).</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>location: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.missing_data_format">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">missing_data_format</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#missing_data_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.missing_data_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a series of timestamps in the right format to allow missing data visualization
+.</p>
+<blockquote>
+<div><p>question: Dataframe</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.missing_noise">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">missing_noise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#missing_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.missing_noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a Dataframe with the estimated missing data from the ambient 
+noise sensor.</p>
+<p>NOTE: This function aggregates data by day.</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>avg_noise: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.occurrence_call_sms">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">occurrence_call_sms</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#occurrence_call_sms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.occurrence_call_sms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame contanining the number of events that occur in a 
+day for call and sms. The events are binned in 12-minutes, i.e. if there is 
+an event at 11:05 and another one at 11:45, 2 occurences happened in one 
+hour. Then, the sum of these occurences yield the number per day.</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>event: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.occurrence_call_sms_apps">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">occurrence_call_sms_apps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_list_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comm_app_list_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#occurrence_call_sms_apps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.occurrence_call_sms_apps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame contanining the number of events that occur in a 
+day for calls, sms, and communication apps. The events are binned in 
+12-minutes, i.e. if there is an event at 11:05 and another one at 11:45, 2 
+occurences happened in one hour. Then, the sum of these occurences yield the 
+number per day.</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional
+app_list_path: path to the file where the apps are classified into groups
+comm_app_list_path:path to the file where the communication apps are listed</p>
+<p>event: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.occurrence_call_sms_social">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">occurrence_call_sms_social</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_list_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comm_app_list_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#occurrence_call_sms_social"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.occurrence_call_sms_social" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame contanining the number of events that occur in a 
+day for calls, sms, and social and communication apps. The events are binned 
+in 12-minutes, i.e. if there is an event at 11:05 and another one at 11:45, 
+2 occurences happened in one hour. Then, the sum of these occurences yield 
+the number per day.</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional
+app_list_path: path to the file where the apps are classified into groups
+comm_app_list_path:path to the file where the communication apps are listed</p>
+<p>event: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.screen_duration">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">screen_duration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#screen_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.screen_duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns two DataFrames contanining the duration and number of events for
+the screen transitions (ON to OFF, OFF to ON, OFF to IN USE, IRRELEVANT 
+transitions). E.g. duration (in seconds) of the phone being ON during a day, 
+or number of times the screen was on during the day.</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>duration: Dataframe
+count: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.screen_missing_data">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">screen_missing_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#screen_missing_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.screen_missing_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame contanining the percentage (range [0,1]) of loss data
+calculated based on the transitions of screen status. In general, if
+screen_status(t) == screen_status(t+1), we declared we have at least one
+missing point.</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>count: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.screen_off">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">screen_off</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#screen_off"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.screen_off" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame with the timestamps of when the screen has changed 
+to “OFF” status.</p>
+<p>NOTE: This is a helper function created originally to preprocess the application 
+info data</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>screen: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.shutdown_info">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">shutdown_info</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#shutdown_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.shutdown_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame with the timestamps of when the phone has shutdown.</p>
+<p>NOTE: This is a helper function created originally to preprocess the application 
+info data</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>shutdown: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.sms_duration">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">sms_duration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#sms_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.sms_duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame contanining the duration per type of messages SMS 
+(outgoing, incoming). The Dataframe summarizes the calculated duration of 
+the incoming/outgoing sms and the lags (i.e. the period between receiving a
+message and reading/writing a reply).</p>
+<p>NOTE: The foundation of this function is still weak and needs discussion</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>reading: Dataframe
+writing: Dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niimpy.preprocess.sms_info">
+<code class="sig-prename descclassname"><span class="pre">niimpy.preprocess.</span></code><code class="sig-name descname"><span class="pre">sms_info</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/niimpy/preprocess/#sms_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#niimpy.preprocess.sms_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame contanining the number of events per type of messages 
+SMS (outgoing, incoming). The Dataframe summarizes the number of the 
+incoming/outgoing sms and how many of those correspond to the top 5 contacts 
+(most frequent with whom the subject exchanges texts)</p>
+<p>database: Niimpy database
+user: string
+begin: datetime, optional
+end: datetime, optional</p>
+<p>sms_stats: Dataframe</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../niimpy.survey/" class="btn btn-neutral float-right" title="niimpy.survey module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../niimpy.sampledata/" class="btn btn-neutral float-left" title="niimpy.sampledata module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, the contributors.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

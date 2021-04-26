@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>niimpy.util &mdash; Niimpy dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/mystnb.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/togglebutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../" class="icon icon-home"> Niimpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Introduction/">Niimpy introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Manual/">Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../schema/">Data schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../architecture/">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules/">niimpy module index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">Niimpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../">Module code</a> &raquo;</li>
+        
+      <li>niimpy.util</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for niimpy.util</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">from</span> <span class="nn">dateutil.tz</span> <span class="kn">import</span> <span class="n">tzlocal</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="c1">#SYSTEM_TZ = tzlocal()  # the operating system timezone - for sqlite output compat</span>
+<span class="n">SYSTEM_TZ</span> <span class="o">=</span> <span class="s1">&#39;Europe/Helsinki&#39;</span>
+<span class="n">TZ</span> <span class="o">=</span> <span class="n">tzlocal</span><span class="p">()</span>
+<span class="n">TZ</span> <span class="o">=</span> <span class="s1">&#39;Europe/Helsinki&#39;</span>
+
+<div class="viewcode-block" id="set_tz"><a class="viewcode-back" href="../../../api/niimpy.util/#niimpy.util.set_tz">[docs]</a><span class="k">def</span> <span class="nf">set_tz</span><span class="p">(</span><span class="n">tz</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Globally set the preferred local timezone&quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">TZ</span>
+    <span class="n">TZ</span> <span class="o">=</span> <span class="n">tz</span></div>
+
+<div class="viewcode-block" id="tmp_timezone"><a class="viewcode-back" href="../../../api/niimpy.util/#niimpy.util.tmp_timezone">[docs]</a><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">tmp_timezone</span><span class="p">(</span><span class="n">new_tz</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Temporarily override the global timezone for a black.</span>
+
+<span class="sd">    This is used as a context manager::</span>
+
+<span class="sd">      with tmp_timezone(&#39;Europe/Berlin&#39;):</span>
+<span class="sd">          ....</span>
+
+<span class="sd">    Note: this overrides the global timezone.  In the future, there will</span>
+<span class="sd">    be a way to handle timezones as non-global variables, which should</span>
+<span class="sd">    be preferred.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">TZ</span>
+    <span class="n">old_tz</span> <span class="o">=</span> <span class="n">TZ</span>
+    <span class="n">TZ</span> <span class="o">=</span> <span class="n">new_tz</span>
+    <span class="k">yield</span>
+    <span class="n">TZ</span> <span class="o">=</span> <span class="n">old_tz</span></div>
+
+<span class="n">SQLITE3_EXTENSIONS_BASENAME</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;sqlite-extension-functions.c&#39;</span><span class="p">)</span>
+<span class="n">SQLITE3_EXTENSIONS_FILENAME</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;sqlite-extension-functions.so&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="install_extensions"><a class="viewcode-back" href="../../../api/niimpy.util/#niimpy.util.install_extensions">[docs]</a><span class="k">def</span> <span class="nf">install_extensions</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Automatically install sqlite extension functions.</span>
+
+<span class="sd">    Only works on Linux for now, improvements welcome.&quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">hashlib</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">SQLITE3_EXTENSIONS_BASENAME</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">urllib.request</span>
+        <span class="n">extension_url</span> <span class="o">=</span> <span class="s1">&#39;https://sqlite.org/contrib/download/extension-functions.c?get=25&#39;</span>
+        <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">extension_url</span><span class="p">,</span> <span class="n">SQLITE3_EXTENSIONS_BASENAME</span><span class="p">)</span>
+    <span class="n">expected_digest</span> <span class="o">=</span> <span class="s1">&#39;991b40fe8b2799edc215f7260b890f14a833512c9d9896aa080891330ffe4052&#39;</span>
+    <span class="k">if</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">SQLITE3_EXTENSIONS_BASENAME</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span> <span class="o">!=</span> <span class="n">expected_digest</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sqlite-extension-functions.c has wrong sha256 hash&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;cd </span><span class="si">%s</span><span class="s1">; gcc -lm -shared -fPIC sqlite-extension-functions.c -o sqlite-extension-functions.so&#39;</span><span class="o">%</span>
+              <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sqlite extension successfully compiled.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="uninstall_extensions"><a class="viewcode-back" href="../../../api/niimpy.util/#niimpy.util.uninstall_extensions">[docs]</a><span class="k">def</span> <span class="nf">uninstall_extensions</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Uninstall any installed extensions&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">unlink_if_exists</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">unlink_if_exists</span><span class="p">(</span><span class="n">SQLITE3_EXTENSIONS_FILENAME</span><span class="p">)</span></div>
+
+
+<span class="c1">#TODO: reanme to data.py</span>
+
+<div class="viewcode-block" id="df_normalize"><a class="viewcode-back" href="../../../api/niimpy.util/#niimpy.util.df_normalize">[docs]</a><span class="k">def</span> <span class="nf">df_normalize</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">old_tz</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Normalize a df (from sql) before presenting it to the user.</span>
+
+<span class="sd">    Modifies the data frame inplace.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+    <span class="k">elif</span> <span class="s1">&#39;day&#39;</span> <span class="ow">in</span> <span class="n">df</span> <span class="ow">and</span> <span class="s1">&#39;hour&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">:00&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">old_tz</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># old_tz is given - e.g. sqlite already converts it to localtime</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="n">old_tz</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="n">TZ</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="n">TZ</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="to_datetime"><a class="viewcode-back" href="../../../api/niimpy.util/#niimpy.util.to_datetime">[docs]</a><span class="k">def</span> <span class="nf">to_datetime</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">times</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="n">TZ</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">times</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="n">TZ</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="occurrence"><a class="viewcode-back" href="../../../api/niimpy.util/#niimpy.util.occurrence">[docs]</a><span class="k">def</span> <span class="nf">occurrence</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">bin_width</span><span class="o">=</span><span class="mi">720</span><span class="p">,</span> <span class="n">grouping_width</span><span class="o">=</span><span class="mi">3600</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Number of 12-minute</span>
+
+<span class="sd">    This reproduces the logic of the &quot;occurrence&quot; database function, without needing the database.</span>
+
+<span class="sd">    inputs: pandas.Series of pandas.Timestamps</span>
+
+<span class="sd">    Output: pandas.DataFrame with timestamp index and &#39;occurance&#39; column.</span>
+
+<span class="sd">    TODO: use the grouping_width option.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">grouping_width</span> <span class="o">!=</span> <span class="mi">3600</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Changing grouping_width is not currently supported.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">grouping_width</span> <span class="o">%</span> <span class="n">bin_width</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;grouping_width must be a multiple of bin_width&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The input to niimpy.util.occurrence must be a &quot;</span>
+                         <span class="s2">&quot;pandas Series or Index, not a DataFrame.  &quot;</span>
+                         <span class="s2">&quot;(your input type was: </span><span class="si">%s</span><span class="s2">)&quot;</span><span class="o">%</span><span class="nb">type</span><span class="p">(</span><span class="n">series</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">base</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span><span class="n">series</span><span class="p">})</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;bin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">minute</span> <span class="o">//</span> <span class="p">(</span><span class="n">bin_width</span><span class="o">//</span><span class="mi">60</span><span class="p">)</span>
+
+    <span class="n">gb1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>   <span class="c1"># everything in the same bin goes to one row</span>
+    <span class="n">gb2</span> <span class="o">=</span> <span class="n">gb1</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="s2">&quot;hour&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>         <span class="c1"># count number of bins in an hour</span>
+    <span class="n">gb2</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span><span class="s2">&quot;occurrence&quot;</span><span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Following handles cases where there are not enough rows... TODO what is the right thing to do here?</span>
+    <span class="n">gb2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gb2</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">gb2</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">:00&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">gb2</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, the contributors.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

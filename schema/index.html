@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Data schema &mdash; Niimpy dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/mystnb.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/togglebutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Architecture" href="../architecture/" />
+    <link rel="prev" title="Manual" href="../Manual/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../" class="icon icon-home"> Niimpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction/">Niimpy introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Manual/">Manual</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data schema</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#format">Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#standard-columns">Standard columns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-standard-columns-in-niimpy">Other standard columns in Niimpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sensors">Sensors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules/">niimpy module index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Niimpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Data schema</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/schema.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-schema">
+<h1>Data schema<a class="headerlink" href="#data-schema" title="Permalink to this headline">¶</a></h1>
+<p>This page documents the expected data schema of Niimpy.  This does
+<em>not</em> extend to the contents of data from sensors (yet), but relates
+to the metadata applicable to all sensors.</p>
+<p>By using a standardized schema (mainly column names), we can promote
+interoperability of various tools.</p>
+<div class="section" id="format">
+<h2>Format<a class="headerlink" href="#format" title="Permalink to this headline">¶</a></h2>
+<p>Data is in a tabular (relational) format.  A row is an observation,
+and columns are properties of observations.  (At this level of
+abstraction, an “observation” may be one sensor observation, or some
+data which contains a package of multiple observations”.</p>
+<p>In Niimpy, this is internally stored and handled as a
+pandas.DataFrame.  The schema naturally maps to the columns/rows of
+the DataFrames.</p>
+<p>The on-disk format is currently irrelevant, as long as the producers
+can create a DataFrame of the necessary format.  Currently, we provide
+readers for sqlite3 and csv.  Standards may be produced later.</p>
+</div>
+<div class="section" id="standard-columns">
+<h2>Standard columns<a class="headerlink" href="#standard-columns" title="Permalink to this headline">¶</a></h2>
+<p>By having standard columns, we can create portable functions that
+easily operate on diverse data types.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: opaque identifier for the user.  Often a string or
+integer.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">device</span></code>: unique identifier for a user’s device (not the
+device type).  For example, a user could have multiple phones, and
+each would have a separate <code class="docutils literal notranslate"><span class="pre">device</span></code> identifier.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>: timestamp of the observation, in unixtime (seconds
+since 00:00 on 1970-01-01).  Unixtime is a globally unique measure
+of an instance of time on Earth, and to get localtime it is combined
+with a timezone.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datetime</span></code>: a <code class="docutils literal notranslate"><span class="pre">DateTime</span></code>-compatible object, such as in pandas a
+numpy.datetime64 object, used only in in-memory representations (not
+usually written to portable save files).  This should be an
+timezone-aware object, and the data loader handles the timezone
+conversion.  automatically added to DataFrames when loaded.</p>
+<p>It is the responsibility of each loader (or preprocessor) to add
+this column to the in-memory representation by converting the
+<code class="docutils literal notranslate"><span class="pre">time</span></code> column to this format.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timezone</span></code>: Timezone in some format.  Not yet used, to be
+decided.</p></li>
+<li><p>For questionaire data</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>: a question identifier.  String, should be of form
+<code class="docutils literal notranslate"><span class="pre">QUESTIONAIERE_QUESTIOR</span></code>, for example <code class="docutils literal notranslate"><span class="pre">PHQ9_01</span></code>.  The common
+prefix is used to group questions of the same series.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">answer</span></code>: the answer to the question.  Opaque identifier.</p></li>
+</ul>
+</li>
+</ul>
+<p>Sensor-specific schemas are defined elsewhere.  Columns which are not
+defined here are allowed and considered to be part of the sensors,
+most APIs should pass through unknown columns for handling in a future
+layer (sensor analysis).</p>
+</div>
+<div class="section" id="other-standard-columns-in-niimpy">
+<h2>Other standard columns in Niimpy<a class="headerlink" href="#other-standard-columns-in-niimpy" title="Permalink to this headline">¶</a></h2>
+<p>These are not part of the primary schema, but are standard in Niimpy.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">day</span></code>: e.g. <code class="docutils literal notranslate"><span class="pre">2021-04-09</span></code> (str)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hour</span></code>: hour of day, e.g. <code class="docutils literal notranslate"><span class="pre">15</span></code> (int)</p></li>
+</ul>
+</div>
+<div class="section" id="sensors">
+<h2>Sensors<a class="headerlink" href="#sensors" title="Permalink to this headline">¶</a></h2>
+<p>Listed here for convenience.</p>
+<p>(none listed yet)</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../architecture/" class="btn btn-neutral float-right" title="Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Manual/" class="btn btn-neutral float-left" title="Manual" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, the contributors.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

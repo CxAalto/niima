@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Architecture &mdash; Niimpy dev documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/mystnb.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/togglebutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="niimpy module index" href="../api/modules/" />
+    <link rel="prev" title="Data schema" href="../schema/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../" class="icon icon-home"> Niimpy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                dev
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction/">Niimpy introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Manual/">Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schema/">Data schema</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#storage-server-side">Storage: server-side</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#layer-conversion">Layer: conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#storage-downloaded">Storage: downloaded</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#layer-reading">Layer: reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#layer-preprocessing">Layer: preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#layer-basic-analysis">Layer: basic analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#layer-analysis">Layer: analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules/">niimpy module index</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Niimpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Architecture</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/architecture.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="architecture">
+<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="storage-server-side">
+<h2>Storage: server-side<a class="headerlink" href="#storage-server-side" title="Permalink to this headline">¶</a></h2>
+<p>This is currently not a function of Niimpy, but on the server-side
+data may be stored in some raw format, where each record contains
+multiple observations as it has been uploaded.</p>
+</div>
+<div class="section" id="layer-conversion">
+<h2>Layer: conversion<a class="headerlink" href="#layer-conversion" title="Permalink to this headline">¶</a></h2>
+<p>In this layer, raw data is converted to a one-row-per-observation
+format, data is limited and processed for privacy, and other
+preprocessing.  This is not a function of Niimpy.</p>
+</div>
+<div class="section" id="storage-downloaded">
+<h2>Storage: downloaded<a class="headerlink" href="#storage-downloaded" title="Permalink to this headline">¶</a></h2>
+<p>Here, data is stored converted for analysis, for example in sqlite3
+databases or csv files.</p>
+</div>
+<div class="section" id="layer-reading">
+<h2>Layer: reading<a class="headerlink" href="#layer-reading" title="Permalink to this headline">¶</a></h2>
+<p>Data is read from the on-disk formats.</p>
+<p>Typical input consists of filenames on disk, and typical output is a
+pandas.DataFrame with a direct mapping of on-disk formats.  For
+converience, it may do various other small limiting and preprocessing,
+but should not look inside the data too much.</p>
+</div>
+<div class="section" id="layer-preprocessing">
+<h2>Layer: preprocessing<a class="headerlink" href="#layer-preprocessing" title="Permalink to this headline">¶</a></h2>
+<p>After reading the data for analysis, preprocessing can handle
+filtering, etc. using the standard schema columns.  It does not look at or
+understand actual sensor values, and the unknown sensor-specific
+columns are passed straight through to a future layer.</p>
+<p>Typical input arguments include the DataFrame, and output is the
+DataFrame slightly adjusted, without affecting sensor-specific
+columns.</p>
+</div>
+<div class="section" id="layer-basic-analysis">
+<h2>Layer: basic analysis<a class="headerlink" href="#layer-basic-analysis" title="Permalink to this headline">¶</a></h2>
+<p>These functions can do aggregation and other basic analysis which is
+not specific to any sensor.</p>
+</div>
+<div class="section" id="layer-analysis">
+<h2>Layer: analysis<a class="headerlink" href="#layer-analysis" title="Permalink to this headline">¶</a></h2>
+<p>These functions understand the sensor values and perform analysis
+based on them.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../api/modules/" class="btn btn-neutral float-right" title="niimpy module index" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../schema/" class="btn btn-neutral float-left" title="Data schema" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, the contributors.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
